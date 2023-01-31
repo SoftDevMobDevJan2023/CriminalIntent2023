@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!-- the FragmentContainerView that will manage creating
+       CrimeDetailFragment and inserting it in the activity’s layout.
+
+     FragmentContainerView interacts with the
+        FragmentManager to display your CrimeDetailFragment. The
+        FragmentContainerView uses the FragmentManager to create
+        and host the fragment you specified in the android:name XML
+        attribute
+
+    Alternative to using the android:name XML attribute, you can
+    attach fragments to your activities in code with the FragmentManager.
+    Also, in addition to the basic functionality provided by your
+    FragmentContainerView, you can use the FragmentManager to
+    remove a fragment from view, replace it with another, and even alter the
+    navigation backstack.
+       -->
+<androidx.fragment.app.FragmentContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
+    android:name="au.edu.swin.sdmd.criminalintent2023.CrimeDetailFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".MainActivity" />
