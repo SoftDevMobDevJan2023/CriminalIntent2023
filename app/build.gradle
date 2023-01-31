@@ -58,4 +58,8 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
     // Testing Fragments in Isolation
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+
+    // ch10: added RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
 }
