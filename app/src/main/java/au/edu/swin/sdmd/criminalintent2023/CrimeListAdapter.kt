@@ -1,6 +1,7 @@
 package au.edu.swin.sdmd.criminalintent2023
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import au.edu.swin.sdmd.criminalintent2023.databinding.ListItemCrimeBinding
  * But, as usual, you are not going to interact directly with the View.
  * You are going to use View Binding
  *
- * @version: Chapter 10
+ * @version: Chapter 10 (created)
  */
 class CrimeHolder(
   private val binding: ListItemCrimeBinding
@@ -36,6 +37,12 @@ class CrimeHolder(
         "${crime.title} clicked!",
         Toast.LENGTH_SHORT
       ).show()
+    }
+
+    binding.crimeSolved.visibility = if (crime.isSolved) {
+      View.VISIBLE
+    } else {
+      View.GONE
     }
   }
 }
