@@ -49,6 +49,7 @@ dependencies {
     //  ducmle: added this dependency to resolve the DuplicateClass build error
     def lifecycle_version = "2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // ducmle: added fragment
     def fragment_version = "1.4.1"

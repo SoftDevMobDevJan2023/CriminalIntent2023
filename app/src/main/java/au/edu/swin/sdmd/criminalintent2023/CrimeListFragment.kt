@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+//import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import au.edu.swin.sdmd.criminalintent2023.databinding.FragmentCrimeListBinding
+import kotlinx.coroutines.launch
 
 private const val TAG = "CrimeListFragment"
 
@@ -46,12 +51,28 @@ class CrimeListFragment : Fragment() {
      */
     binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
 
-    //  instantiate an instance with your crime data and connect it to your RecyclerView
-    val crimes = crimeListViewModel.crimes
-    val adapter = CrimeListAdapter(crimes)
-    binding.crimeRecyclerView.adapter = adapter
-
     return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    /*
+    With the repeatOnLifecycle(…) function, you can execute coroutine
+    code while your fragment is in a specified lifecycle state. For example, you
+    only want this coroutine code to execute while your fragment is in the
+    started or resumed state. Also, repeatOnLifecycle is itself a
+    suspending function. You will launch it in your view lifecycle scope, which
+    will cause your work to be canceled permanently when your view is
+    destroyed.
+     */
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        val crimes = crimeListViewModel.loadCrimes()
+        binding.crimeRecyclerView.adapter =
+          CrimeListAdapter(crimes)
+      }
+    }
   }
 
   override fun onDestroyView() {
