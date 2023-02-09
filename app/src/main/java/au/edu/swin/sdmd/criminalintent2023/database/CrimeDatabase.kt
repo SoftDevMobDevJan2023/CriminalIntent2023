@@ -8,7 +8,11 @@ import au.edu.swin.sdmd.criminalintent2023.Crime
 /**
  * @version ch12
  */
-@Database(entities = [ Crime::class ], version=1)
+@Database(entities = [ Crime::class ], version=1
+  // disable the export and the associated Build's warning:
+  // "Schema export directory is not provided..."
+  , exportSchema = false
+)
 @TypeConverters(CrimeTypeConverters::class)
 abstract class CrimeDatabase : RoomDatabase() {
   abstract fun crimeDao(): CrimeDao

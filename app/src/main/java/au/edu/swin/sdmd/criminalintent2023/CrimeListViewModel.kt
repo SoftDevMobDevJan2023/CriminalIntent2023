@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import au.edu.swin.sdmd.criminalintent2023.database.CrimeRepository
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -26,17 +29,25 @@ class CrimeListViewModel : ViewModel() {
   // ch12
   private val crimeRepository = CrimeRepository.get()
 
-  val crimes = //mutableListOf<Crime>()
-    crimeRepository.getCrimes()
+  /** Use StateFlow to maintain a single stream of data from your database
+   and cache the results so they can quickly be displayed to the user.
+    StateFlow always has a value that observers
+    can collect from its stream. It starts with an initial value and caches the
+    latest value that was emitted into the stream.
+  */
+  val _crimes : MutableStateFlow<List<Crime>> = MutableStateFlow(emptyList())
+  val crimes: StateFlow<List<Crime>>
+    get() = _crimes.asStateFlow()
+
+  // 12.1: crimeRepository.getCrimes()
 
   init {
-    // ch12: use coroutine
-//    Log.d(TAG, "init starting")
-//    viewModelScope.launch {
-//      Log.d(TAG, "coroutine launched")
-//      crimes += loadCrimes()
-//      Log.d(TAG, "Loading crimes finished")
-//    }
+    // ch12: use database result caching
+    viewModelScope.launch {
+      crimeRepository.getCrimes().collect {
+        _crimes.value = it
+      }
+    }
   }
 
   /**
