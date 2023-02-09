@@ -14,4 +14,21 @@ CriminalIntent is a complex app that will take 11 chapters to complete. It will 
 interface: The main screen will display a list of recorded crimes, and users will be able to add new
 crimes or select an existing crime to view and edit its details (Figure 8.1)
 
+# Chapter 12
 
+***Room*** (database access API):
+- Version 2.4.2 mentioned in BNR book does not work properly (Error with "suspend" use for `CrimeDAO.getCrimes`).
+  - Change to version "2.4.3" solved this
+
+***CrimeDAO.getCrimes()***:
+```
+interface CrimeDao {
+  @Query("SELECT * FROM crime")
+  // this does not work!!:
+  // suspend fun getCrimes(): List<Crime>
+  fun getCrimes(): Flow<List<Crime>>
+
+  @Query("SELECT * FROM crime WHERE id=(:id)")
+  suspend fun getCrime(id: UUID): Crime
+}
+```
