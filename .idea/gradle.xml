@@ -9,8 +9,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="/data/projects/swinburne/2023/1-Spring/COS30017-SwDevMobile/dev/CriminalIntent2023" />
+            <option value="/data/projects/swinburne/2023/1-Spring/COS30017-SwDevMobile/dev/CriminalIntent2023/app" />
           </set>
         </option>
       </GradleProjectSettings>

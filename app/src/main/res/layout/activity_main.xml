@@ -16,11 +16,15 @@
     navigation backstack.
        -->
 <!-- Version ch10: uses CrimeListFragment instead of CrimeDetailFragment -->
+<!-- Version ch13: make NavHostFragment the inflated component (rather than CrimeListFragment) -->
 <androidx.fragment.app.FragmentContainerView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
-    android:name="au.edu.swin.sdmd.criminalintent2023.CrimeListFragment"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/nav_graph"
     tools:context=".MainActivity" />

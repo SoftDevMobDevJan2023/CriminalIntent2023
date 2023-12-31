@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import au.edu.swin.sdmd.criminalintent2023.databinding.ListItemCrimeBinding
+import java.util.*
 
 /**
  * The RecyclerView expects an item view to be wrapped in an instance of ViewHolder.
@@ -22,7 +23,8 @@ class CrimeHolder(
    * cache the crime being bound into a property and
    * set the text values on crimeTitle and crimeDate
    * */
-  fun bind(crime: Crime) {
+  fun bind(crime: Crime,
+           onCrimeClicked: (crimeId: UUID) -> Unit) {
     binding.crimeTitle.text = crime.title
     binding.crimeDate.text = crime.date.toString()
 
@@ -32,11 +34,14 @@ class CrimeHolder(
      * set the OnClickListener on the root property of the binding.
      * */
     binding.root.setOnClickListener {
-      Toast.makeText(
-        binding.root.context,
-        "${crime.title} clicked!",
-        Toast.LENGTH_SHORT
-      ).show()
+      /* ch13: improved to call CrimeDetailFragment
+        Toast.makeText(
+          binding.root.context,
+          "${crime.title} clicked!",
+          Toast.LENGTH_SHORT
+        ).show()
+      */
+      onCrimeClicked(crime.id)
     }
 
     binding.crimeSolved.visibility = if (crime.isSolved) {
@@ -61,7 +66,8 @@ class CrimeHolder(
  *  - asking the adapter to bind a ViewHolder to the item from the backing data at a given position
  */
 class CrimeListAdapter(
-  private val crimes: List<Crime>
+  private val crimes: List<Crime>,
+  private val onCrimeClicked: (crimeId: UUID) -> Unit  // ch13
 ) : RecyclerView.Adapter<CrimeHolder>() {
 
   /**
@@ -85,7 +91,7 @@ class CrimeListAdapter(
    **/
   override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
     val crime = crimes[position]
-    holder.bind(crime)
+    holder.bind(crime, onCrimeClicked)
   }
   override fun getItemCount() = crimes.size
 }

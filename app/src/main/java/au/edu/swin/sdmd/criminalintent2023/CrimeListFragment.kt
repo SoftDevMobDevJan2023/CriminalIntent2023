@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import au.edu.swin.sdmd.criminalintent2023.databinding.FragmentCrimeListBinding
 import kotlinx.coroutines.Job
@@ -67,7 +69,14 @@ class CrimeListFragment : Fragment() {
       viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
         val crimes = crimeListViewModel.crimes.collect { crimes ->
           binding.crimeRecyclerView.adapter =
-            CrimeListAdapter(crimes)
+            CrimeListAdapter(crimes) { crimeId ->
+              // ch13: added call-back lambda
+              findNavController().navigate(
+                // R.id.show_crime_detail
+                // use generated class by SafeArgs plugin, instead of using Id
+                CrimeListFragmentDirections.showCrimeDetail(crimeId)
+              )
+            }
         }
 //          crimeListViewModel.loadCrimes()
 //        binding.crimeRecyclerView.adapter =

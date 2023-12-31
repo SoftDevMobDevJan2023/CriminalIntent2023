@@ -2,6 +2,7 @@ package au.edu.swin.sdmd.criminalintent2023.database
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Update
 import au.edu.swin.sdmd.criminalintent2023.Crime
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -18,4 +19,8 @@ interface CrimeDao {
 
   @Query("SELECT * FROM crime WHERE id=(:id)")
   suspend fun getCrime(id: UUID): Crime
+
+  //ch13: update
+  @Update
+  suspend fun updateCrime(crime: Crime)
 }

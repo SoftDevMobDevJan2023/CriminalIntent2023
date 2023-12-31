@@ -32,3 +32,17 @@ interface CrimeDao {
   suspend fun getCrime(id: UUID): Crime
 }
 ```
+
+# Chapter 13
+
+## Scope
+In this chapter, you will get the list and the detail parts of CriminalIntent
+working together. Using the Navigation Jetpack library, you will define the
+screens your users will be able to see and how your users can move
+between them.
+
+When a user presses an item in the list of crimes, the Navigation library will
+swap out CrimeListFragment with a new instance of
+CrimeDetailFragment displaying the details for the crime that was
+pressed
+

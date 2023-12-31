@@ -4,6 +4,9 @@ plugins {
     // ch12: KAPT enables your
     // project to generate code for you when compiling your app
     id 'org.jetbrains.kotlin.kapt'
+
+    // ch13: SafeArgs plugin
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -75,4 +78,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // ch13: navigation graph
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 }
